@@ -31,7 +31,7 @@ sacro
 sacry
 ```
 
-On my system, `/usr/share/dict/words` has around 500,000 words. Running this program takes about 15 minutes to complete and produces just over 20,000 results. The runtime will depend on the speed and number of processors available on your system.
+On my system, `/usr/share/dict/words` has around 500,000 words. Running this program takes just a few seconds to complete and produces just over 25,000 results.
 
 ## Getting started
 
@@ -48,10 +48,10 @@ On my system, `/usr/share/dict/words` has around 500,000 words. Running this pro
 4. Run the script using Python:
 
     ```
-    python3 wordmaker.py -o words.txt -r 100
+    python3 wordmaker.py -o words.txt
     ```
 
-    This will output words to the file `words.txt`, and it will print a status report after processing every 100 patterns so that you have some idea what's going on.
+    This will output words to the file `words.txt`.
 
     **NB**: If this is the first time you are running the `python3` command, you will be prompted to install some software. Allow the software installation to complete, and then re-run the above command.
 
@@ -61,26 +61,26 @@ When the script completes, the file `words.txt` will contain the list of word gr
 
 ```
 usage: wordmaker.py [-h] [--length LENGTH] [--word-list WORD_LIST]
-                    [--output OUTPUT] [--processes PROCESSES]
-                    [--report REPORT]
+                    [--output OUTPUT]
 
 options:
   -h, --help            show this help message and exit
-  --length, -l LENGTH   Set length of common pattern
+  --length, -l LENGTH   Extract words of this length
   --word-list, -w WORD_LIST
                         Path to word list
   --output, -o OUTPUT   Path to output file
-  --processes, --procs, -p PROCESSES
-                        Number of workers (default is the number of available
-                        cores)
-  --report, -r REPORT   Write status information after processing this many
-                        patterns
 ```
 
 For example, to produce words using an alternative word list:
 
 ```
 python3 wordmaker.py -w my-list-of-words.txt -o words.txt
+```
+
+To produce a list of six-letter words (grouped by a common set of four characters):
+
+```
+python3 wordmaker.py -l 6 -o words.txt
 ```
 
 ## Alternative word lists
