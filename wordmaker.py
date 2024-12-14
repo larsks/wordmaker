@@ -3,8 +3,16 @@
 import argparse
 import itertools
 import sys
+from dataclasses import dataclass
 
 from pathlib import Path
+
+
+@dataclass
+class Args:
+    length: int = 5
+    word_list: Path = Path("/usr/share/dict/words")
+    output: Path = Path("-")
 
 
 def parse_args():
@@ -24,11 +32,11 @@ def parse_args():
         "--output",
         "-o",
         type=Path,
-        default=sys.stdout,
+        default="-",
         help="Path to output file",
     )
 
-    return p.parse_args()
+    return Args(**vars(p.parse_args()))
 
 
 def main():
@@ -53,7 +61,7 @@ def main():
             key=lambda x: x[1:-1],
         )
 
-    with args.output if args.output is sys.stdout else args.output.open("w") as fd:
+    with sys.stdout if str(args.output) == "-" else args.output.open("w") as fd:
         for key, _group in res:
             # convert word group to a set rather than a list to remove duplicates
             group = set(_group)
